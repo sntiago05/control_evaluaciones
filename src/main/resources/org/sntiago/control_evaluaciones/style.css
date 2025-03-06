@@ -1,0 +1,82 @@
+
+.root {
+    -fx-background-color: linear-gradient(to bottom, rgb(33, 28, 132), rgb(45, 51, 107));
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.hbox-title {
+    -fx-background-color: #211C84;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+#title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.titled-pane {
+    -fx-background-color: #E0E0E0;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 10px;
+}
+
+
+.titled-pane > .content {
+    -fx-background-color: #F8F8F8;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+
+.text-field {
+    -fx-border-color: #2D336B;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+
+.button {
+    -fx-background-color: #211C84;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.button:hover {
+    -fx-background-color: #5058A8;
+    -fx-cursor: hand;
+}
+
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+    -fx-background-radius: 10px 10px 0px 0px;
+}
+
+.vbox-statistics {
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 10px;
+}
+
+.table-view .column-header-background {
+    -fx-background-radius: 10px 10px 0px 0px;
+    -fx-border-radius: 10px 10px 0px 0px;
+    -fx-background-color: #E0E0E0;
+}
+
