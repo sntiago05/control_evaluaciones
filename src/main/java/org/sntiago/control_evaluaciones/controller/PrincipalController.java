@@ -40,6 +40,19 @@ public class PrincipalController {
     public void initialize() {
         alumnos = new ArrayList<>();
 
+        configurarCeldas();
+
+
+        tableNotas.setItems(FXCollections.observableArrayList(alumnos));
+
+        restringirEntrada(txtEva1);
+        restringirEntrada(txtEva2);
+        restringirEntrada(txtEva3);
+        restringirEntrada(txtAct);
+        restringirNombreEstudiante(txtEstudiante);
+    }
+
+    private void configurarCeldas() {
         colCondicion.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().aprobado()));
         colEstudiante.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getNombre()));
@@ -63,15 +76,6 @@ public class PrincipalController {
         colPromedio.setCellValueFactory(cellData ->
                 new SimpleDoubleProperty(cellData.getValue().calcularPromedio()).asObject());
         configurarColumnaDecimal(colPromedio);
-
-
-        tableNotas.setItems(FXCollections.observableArrayList(alumnos));
-
-        restringirEntrada(txtEva1);
-        restringirEntrada(txtEva2);
-        restringirEntrada(txtEva3);
-        restringirEntrada(txtAct);
-        restringirNombreEstudiante(txtEstudiante);
     }
 
     @FXML
@@ -85,31 +89,40 @@ public class PrincipalController {
 
     @FXML
     protected void guardar() {
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-        alerta.setTitle("Seleccionar Tipo de Alumno");
-        alerta.setHeaderText("Por favor, seleccione un tipo de alumno:");
+        Alert alerta;
+        if (camposVacios()) {
+            alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Campos Vacios");
+            alerta.setHeaderText("Los campos no pueden estar vacios");
+            alerta.show();
+        } else {
+            alerta = new Alert(Alert.AlertType.CONFIRMATION);
+            alerta.setTitle("Seleccionar Tipo de Alumno");
+            alerta.setHeaderText("Por favor, seleccione un tipo de alumno:");
 
-        ComboBox<Alumno.TipoAlumno> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll(Alumno.TipoAlumno.values());
-        comboBox.setValue(Alumno.TipoAlumno.REGULAR);
-        alerta.getDialogPane().setContent(comboBox);
-        alerta.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+            ComboBox<Alumno.TipoAlumno> comboBox = new ComboBox<>();
+            comboBox.getItems().addAll(Alumno.TipoAlumno.values());
+            comboBox.setValue(Alumno.TipoAlumno.REGULAR);
+            alerta.getDialogPane().setContent(comboBox);
+            alerta.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
 
-        alerta.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                Alumno.TipoAlumno seleccion = comboBox.getValue();
-                Alumno alumno = new Alumno(txtEstudiante.getText(), seleccion);
-                alumno.getPromedio().setNotas(parsearNota(txtEva1.getText())
-                        , parsearNota(txtEva2.getText()),
-                        parsearNota(txtEva3.getText()),
-                        parsearNota(txtAct.getText()));
-                alumnos.add(alumno);
+            alerta.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    Alumno.TipoAlumno seleccion = comboBox.getValue();
+                    Alumno alumno = new Alumno(txtEstudiante.getText(), seleccion);
+                    alumno.getPromedio().setNotas(parsearNota(txtEva1.getText())
+                            , parsearNota(txtEva2.getText()),
+                            parsearNota(txtEva3.getText()),
+                            parsearNota(txtAct.getText()));
+                    alumnos.add(alumno);
 
-                tableNotas.setItems(FXCollections.observableArrayList(alumnos));
-                tableNotas.refresh();
-                areaEstadistica.setText(calcularEstadisticas());
-            }
-        });
+                    tableNotas.setItems(FXCollections.observableArrayList(alumnos));
+                    tableNotas.refresh();
+                    areaEstadistica.setText(calcularEstadisticas());
+                }
+            });
+        }
+
 
     }
 
@@ -171,5 +184,13 @@ public class PrincipalController {
                 setText((empty || item == null) ? null : String.format("%.2f", item));
             }
         });
+    }
+
+    private boolean camposVacios() {
+        return txtEva1.getText().isBlank()
+               || txtEva2.getText().isBlank()
+               || txtEva3.getText().isBlank()
+               || txtAct.getText().isBlank()
+               || txtEstudiante.getText().isBlank();
     }
 }

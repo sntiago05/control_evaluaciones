@@ -76,7 +76,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.sntiago.control_evaluaciones.demo/org.sntiago.control_evaluaciones.HelloApplication
+                                org.sntiago.control_evaluaciones.demo/org.sntiago.control_evaluaciones.PrincipalAplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

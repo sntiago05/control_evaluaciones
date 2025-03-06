@@ -8,10 +8,10 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class PrincipalAplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("principal_view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(PrincipalAplication.class.getResource("principal_view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Evaluacion de Estudiantes");
         stage.initStyle(StageStyle.DECORATED);
